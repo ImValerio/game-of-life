@@ -23,11 +23,11 @@ func printGrid(grid [][]rune) {
 }
 
 func setupGrid(grid [][]rune) {
-	for i := range grid {
-		for j := range grid[i] {
-			grid[i][j] = DEAD
+	for row := range grid {
+		for col := range grid[row] {
+			grid[row][col] = DEAD
 			if rand.Intn(100) < 20 {
-				grid[i][j] = ALIVE
+				grid[row][col] = ALIVE
 			}
 		}
 	}

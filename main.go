@@ -11,27 +11,34 @@ import (
 func printGrid(grid [][]rune) {
 	for _, row := range grid {
 		for _, cell := range row {
-			fmt.Printf("%c", cell)
+			if cell == ALIVE {
+				fmt.Printf("\033[32m%c\033[0m", cell) // set green color for alive cells
+			} else {
+				fmt.Printf("%c", cell)
+			}
 		}
 		fmt.Println()
 	}
 }
 
+/* Setup grid with random alive cells (10% chance) */
 func setupGrid(grid [][]rune) {
 	for row := range grid {
 		for col := range grid[row] {
 			grid[row][col] = DEAD
-			if rand.Intn(100) < 20 {
+			if rand.Intn(100) < 10 {
 				grid[row][col] = ALIVE
 			}
 		}
 	}
 }
 
+/* Modulo operation with wrap around */
 func mod(a, b int) int {
 	return (a%b + b) % b
 }
 
+/* Count neighbors of a cell in a grid with wrap around */
 func countNeighbors(grid [][]rune, row int, col int) int {
 	neighbors := 0
 	for i := -1; i <= 1; i++ {

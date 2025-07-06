@@ -3,14 +3,9 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
+	"strconv"
 	"time"
-)
-
-const (
-	NUM_COLS = 50
-	NUM_ROWS = 20
-	ALIVE    = 'o'
-	DEAD     = '-'
 )
 
 func printGrid(grid [][]rune) {
@@ -89,7 +84,26 @@ func updateGrid(grid [][]rune) {
 	}
 }
 
+var (
+	NUM_COLS = 50
+	NUM_ROWS = 20
+	ALIVE    = 'o'
+	DEAD     = '-'
+)
+
 func main() {
+
+	if len(os.Args) > 1 {
+		if val, err := strconv.Atoi(os.Args[1]); err == nil {
+			NUM_COLS = val
+		}
+		if len(os.Args) > 2 {
+			if val, err := strconv.Atoi(os.Args[2]); err == nil {
+				NUM_ROWS = val
+			}
+		}
+	}
+
 	grid := make([][]rune, NUM_ROWS)
 	for i := range grid {
 		grid[i] = make([]rune, NUM_COLS)
